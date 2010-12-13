@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <QSettings>
 
+#include "qlangassistmodel.h"
 #include "qlangassistwidget.h"
 
 
@@ -16,8 +17,8 @@ QLangAssistWindow::QLangAssistWindow()
 {
   // setTitle("QSdict");
   setMinimumSize(200,200);
-
-  iWidget = new QLangAssistWidget();
+  iModel = new QLangAssistModel;
+  iWidget = new QLangAssistWidget(*iModel);
   setCentralWidget(iWidget);
   
   
@@ -30,6 +31,7 @@ QLangAssistWindow::QLangAssistWindow()
   //   iLastFile = settings.value(lastDictionaryFile).toString();
   //   QTimer::singleShot(10, this, SLOT(loadLastFile()));
   // }
+    QTimer::singleShot(10, this, SLOT(openFile()));
 }
 
 QLangAssistWindow::~QLangAssistWindow()
@@ -48,8 +50,10 @@ void QLangAssistWindow::createMenus()
 
 void QLangAssistWindow::openFile()  
 {
-  // QString fileName = QFileDialog::getOpenFileName(this,
-  //                                                 tr("Open Dictionary"), "", tr("Dictionaries (*.dct)"));
+  QString fileName = QFileDialog::getOpenFileName(this,
+                                                  tr("Open Dictionary"), "", tr("Dictionaries (*.txt)"));
+  if (iModel->readFile(fileName))
+    iWidget->reloadWindow();
   // iWidget->setDictionary(fileName);
   // QSettings settings("TxMSoft", "QSdict");
   // settings.setValue(lastDictionaryFile,fileName);

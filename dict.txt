@@ -1,0 +1,15 @@
+betydor --- meaning
+heter --- called
+svart --- black
+svart1 --- black1
+svart2 --- black2
+svart3 --- black3
+svart4 --- black4
+svart5 --- black5
+svar6 --- black6
+art1 --- asblack1
+art2 --- asblack2
+art3 --- asblack3
+art4 --- asblack4
+art5 --- asblack5
+ar6 --- baslack6

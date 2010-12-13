@@ -6,7 +6,7 @@
 #include <QMainWindow>
 
 class QLangAssistWidget;
-
+class QLangAssistModel;
 
 class QLangAssistWindow : public QMainWindow
 {
@@ -21,7 +21,8 @@ public slots:
                  
 private slots:
   
-private:  
+private:
+  QLangAssistModel* iModel;
   QLangAssistWidget* iWidget;
   QAction* iOpenAct;
 

@@ -4,19 +4,47 @@
 
 #include <QHash>
 #include <QString>
+#include <QStringList>
+#include <utility>
 
+
+class IChoices
+{
+public:
+  virtual ~IChoices(){}
+  virtual void fillChoices(const QString& word, const QStringList& choices) = 0;
+};
 
 class QLangAssistModel : public QObject
 {
   Q_OBJECT;
+public:
   typedef QHash<QString,QString> DictionaryT;
+  struct WrongAnswer
+  {
+    WrongAnswer(const QString& word, const QString& answered, const QString& correct)
+      : iWord(word), iAnswered(answered), iCorrect(correct) {}
+    QString iWord;
+    QString iAnswered;
+    QString iCorrect;
+  };
+
+  typedef QList<WrongAnswer> WrongAnswersListT;
+  
 public:
   QLangAssistModel();
   ~QLangAssistModel();
-  void readFile(const QString& fileName);
-
+  bool readFile(const QString& fileName);
+  void start();
+  void stop(WrongAnswersListT& wrongAnswers, int& numberOfQuestionsTotal);
+  void fillChoices(IChoices& choices, int numOfCoices);
+  int answer(const QString& word, const QString& translation);
+private:
+  void processLine(const QString& line);
 private:
   DictionaryT iDict;
+  QList<WrongAnswer> iWrongAnswers;
+  int iNumberOfQuestionsAsked;
 };
 
 #endif /* _QLANGASSISTMODEL_H_ */

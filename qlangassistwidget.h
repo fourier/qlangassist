@@ -3,28 +3,45 @@
 #define _QLANGASSISTWIDGET_H_
 
 #include <QWidget>
+#include <QList>
+#include "qlangassistmodel.h"
 
 class QLabel;
+
 class QRadioButton;
 class QGroupBox;
 class QPushButton;
 
-class QLangAssistWidget : public QWidget
+class QLangAssistWidget : public QWidget, public IChoices
 {
   Q_OBJECT;
 public:
   typedef QWidget ParentT;
+  typedef QList<QRadioButton*> ButtonsListT;
 public:
-  QLangAssistWidget(QWidget* parent = NULL);
-  ~QLangAssistWidget();  
+  QLangAssistWidget(QLangAssistModel& model, int numOfChoices = 3);
+  ~QLangAssistWidget();
+  void reloadWindow();
   
+  virtual void fillChoices(const QString& word, const QStringList& choices);
 signals:
     
 public slots:
+  void next();
+  void finish();
 private:
+  static QString createResults(const QLangAssistModel::WrongAnswersListT& wrongAnswers,
+    int numberOfQuestions);
+private:
+  
+  QLangAssistModel& iModel;
+  int iNumOfChoices;
+  QLabel* iQuestionNumber;
   QLabel* iPhrase;
   QGroupBox* iChoices;
+  ButtonsListT* iRadioButtons;
   QPushButton* iNextButton;
+  QPushButton* iFinishButton;
 };
 
 #endif /* _QLANGASSISTWIDGET_H_ */
