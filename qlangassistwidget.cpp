@@ -10,15 +10,17 @@
 #include <QTextBrowser>
 
 
+const char* kQuestionText = "Question number 1";
+
 QLangAssistWidget::QLangAssistWidget(QLangAssistModel& model, int numOfChoices) :
   ParentT(),
   iModel(model),
   iNumOfChoices(numOfChoices)
 {
   // Label
-  iQuestionNumber = new QLabel("Question number 1");
+  iQuestionNumber = new QLabel(kQuestionText);
   iPhrase = new QLabel();
-  
+  iPhrase->setStyleSheet("QLabel {font-size: 18pt; font-weight: bold; color: darkgreen}");
   iRadioButtons = new ButtonsListT(); 
   iChoices = new QGroupBox(tr("Choose the correct translation:"));
 
@@ -59,6 +61,7 @@ QLangAssistWidget::~QLangAssistWidget()
 
 void QLangAssistWidget::reloadWindow()
 {
+  iQuestionNumber->setText(kQuestionText);
   iModel.start();
   iModel.fillChoices(*this,iNumOfChoices);
 }
@@ -76,7 +79,7 @@ void QLangAssistWidget::next()
 
 void QLangAssistWidget::finish()
 {
-  iQuestionNumber->setText("1");
+  iQuestionNumber->setText(kQuestionText);
   QLangAssistModel::WrongAnswersListT wrongAnswers;
   int numberOfQuestionsTotal = 0;
   iModel.stop(wrongAnswers,numberOfQuestionsTotal);

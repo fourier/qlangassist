@@ -24,6 +24,7 @@ public:
   void reloadWindow();
   
   virtual void fillChoices(const QString& word, const QStringList& choices);
+
 signals:
     
 public slots:

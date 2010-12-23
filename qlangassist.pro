@@ -6,7 +6,8 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
 INCLUDEPATH += .
-
+RESOURCES += qlangassist.qrc
+RC_FILE = qlangassist.rc
 # Input
 HEADERS += qlangassistmodel.h qlangassistwidget.h qlangassistwindow.h
 SOURCES += main.cpp \

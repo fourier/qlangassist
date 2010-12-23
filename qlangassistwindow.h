@@ -4,28 +4,37 @@
 
 
 #include <QMainWindow>
+#include <QSystemTrayIcon>
+#include <QEvent>
+#include <QCloseEvent>
 
 class QLangAssistWidget;
 class QLangAssistModel;
+
 
 class QLangAssistWindow : public QMainWindow
 {
   Q_OBJECT;
 public:
+  typedef QMainWindow Parent;
+public:
   QLangAssistWindow();
   virtual ~QLangAssistWindow();
   void createMenus();
-
+protected:
+  virtual void closeEvent(QCloseEvent* e);
 public slots:
+  
   void openFile();
                  
 private slots:
-  
+  void sysTrayActivated(QSystemTrayIcon::ActivationReason reason);
 private:
+  QSystemTrayIcon* iSysTrayIcon;
   QLangAssistModel* iModel;
   QLangAssistWidget* iWidget;
   QAction* iOpenAct;
-
+  QAction* iQuitAct;
 };
 
 

@@ -26,6 +26,13 @@ void QLangAssistModel::start()
   iWrongAnswers.clear();
 }
 
+void QLangAssistModel::clear()
+{
+  iNumberOfQuestionsAsked = 0;
+  iWrongAnswers.clear();
+  iDict.clear();
+}
+
 void QLangAssistModel::stop(WrongAnswersListT& wrongAnswers, int& numberOfQuestionsTotal)
 {
   wrongAnswers = iWrongAnswers;
@@ -78,6 +85,7 @@ bool QLangAssistModel::readFile(const QString& fileName)
   QTextStream stream(&file);
   stream.setCodec(QTextCodec::codecForName("UTF-8"));
   stream.setAutoDetectUnicode(true);
+  clear();
   QString line;
   do
   {
@@ -98,8 +106,8 @@ void QLangAssistModel::processLine(const QString& line)
   if (textLine[0] == '#')
     return;
   QString word,translation;
-  word = textLine.section("---",0,0);
-  translation = textLine.section("---",1,1);
+  word = textLine.section("---",0,0).simplified();
+  translation = textLine.section("---",1,1).simplified();
   if (word.length() && translation.length())
     iDict[word] = translation;
 }

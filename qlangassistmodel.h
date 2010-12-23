@@ -41,6 +41,7 @@ public:
   int answer(const QString& word, const QString& translation);
 private:
   void processLine(const QString& line);
+  void clear();
 private:
   DictionaryT iDict;
   QList<WrongAnswer> iWrongAnswers;
