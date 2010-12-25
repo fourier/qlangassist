@@ -26,6 +26,7 @@ protected:
 public slots:
   
   void openFile();
+  void showWindow();
                  
 private slots:
   void sysTrayActivated(QSystemTrayIcon::ActivationReason reason);
@@ -35,6 +36,7 @@ private:
   QLangAssistWidget* iWidget;
   QAction* iOpenAct;
   QAction* iQuitAct;
+  QAction* iShowAct;
 };
 
 

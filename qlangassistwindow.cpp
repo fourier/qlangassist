@@ -38,6 +38,10 @@ QLangAssistWindow::QLangAssistWindow()
 
 
   QMenu* trayMenu = new QMenu;
+  iShowAct = new QAction(tr("Show"),this);
+  connect(iShowAct,SIGNAL(triggered()),this,SLOT(showWindow()));
+  trayMenu->addAction(iShowAct);
+  trayMenu->addSeparator();
   trayMenu->addAction(iQuitAct);
   iSysTrayIcon->setContextMenu(trayMenu);
   
@@ -91,4 +95,7 @@ void QLangAssistWindow::closeEvent(QCloseEvent* e)
   e->ignore();
 }
 
-
+void QLangAssistWindow::showWindow()
+{
+  show();
+}
