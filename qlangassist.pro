@@ -8,9 +8,22 @@ DEPENDPATH += .
 INCLUDEPATH += .
 RESOURCES += qlangassist.qrc
 RC_FILE = qlangassist.rc
+ICON = qlangassist.icns
+
 # Input
 HEADERS += qlangassistmodel.h qlangassistwidget.h qlangassistwindow.h
 SOURCES += main.cpp \
            qlangassistmodel.cpp \
            qlangassistwidget.cpp \
            qlangassistwindow.cpp
+
+#mkdir -p qlangassist.app/Contents/Frameworks           
+macx {
+  QMAKE_POST_LINK += $${QMAKE_MKDIR} ./qlangassist.app/Contents/Frameworks;
+  QMAKE_POST_LINK += $${QMAKE_COPY} -R /opt/local/libexec/qt4-mac//lib/QtGui.framework/Versions/4/Resources/qt_menu.nib ./qlangassist.app/Contents/Resources/qt_menu.nib;
+  QMAKE_POST_LINK += $${QMAKE_COPY} /opt/local/libexec/qt4-mac/lib/QtGui.framework/Versions/4/QtGui ./qlangassist.app/Contents/Frameworks/QtGui;
+  QMAKE_POST_LINK += $${QMAKE_COPY} /opt/local/libexec/qt4-mac/lib/QtCore.framework/Versions/4/QtCore ./qlangassist.app/Contents/Frameworks/QtCore;
+  QMAKE_POST_LINK += install_name_tool -change /opt/local/libexec/qt4-mac/lib/QtGui.framework/Versions/4/QtGui @executable_path/../Frameworks/QtGui qlangassist.app/Contents/MacOS/qlangassist;
+  QMAKE_POST_LINK += install_name_tool -change /opt/local/libexec/qt4-mac/lib/QtCore.framework/Versions/4/QtCore @executable_path/../Frameworks/QtCore qlangassist.app/Contents/MacOS/qlangassist;
+}
+  

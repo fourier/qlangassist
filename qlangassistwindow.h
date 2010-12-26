@@ -27,13 +27,14 @@ public slots:
   
   void openFile();
   void showWindow();
-                 
+  void about();
 private slots:
   void sysTrayActivated(QSystemTrayIcon::ActivationReason reason);
 private:
   QSystemTrayIcon* iSysTrayIcon;
   QLangAssistModel* iModel;
   QLangAssistWidget* iWidget;
+  QAction* iAboutAct;
   QAction* iOpenAct;
   QAction* iQuitAct;
   QAction* iShowAct;

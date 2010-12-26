@@ -8,13 +8,14 @@
 #include <QTimer>
 #include <QSettings>
 #include <QApplication>
+#include <QMessageBox>
 
 #include "qlangassistmodel.h"
 #include "qlangassistwidget.h"
 
 
 QLangAssistWindow::QLangAssistWindow()
-  : QMainWindow(0,Qt::Dialog|Qt::WindowContextHelpButtonHint)
+  : QMainWindow(0,Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint)
 {
   setWindowIcon(QIcon(":/QLangAssist/icon.png"));
   iSysTrayIcon = new QSystemTrayIcon(QIcon(":/QLangAssist/icon.png"));
@@ -60,6 +61,12 @@ QLangAssistWindow::~QLangAssistWindow()
 void QLangAssistWindow::createMenus()
 {
   QMenu* fileMenu = menuBar()->addMenu(tr("&File"));
+  iAboutAct = new QAction(tr("&About"), this);
+  iAboutAct->setStatusTip(tr("About the QLangAssist"));
+  connect(iAboutAct, SIGNAL(triggered()), this, SLOT(about()));
+  QMenu* helpMenu = menuBar()->addMenu(tr("&Help"));
+  helpMenu->addAction(iAboutAct);
+  
   iOpenAct = new QAction(tr("&Open..."),this);
   iQuitAct=  new QAction(tr("&Exit"),this);
   fileMenu->addAction(iOpenAct);
@@ -98,4 +105,13 @@ void QLangAssistWindow::closeEvent(QCloseEvent* e)
 void QLangAssistWindow::showWindow()
 {
   show();
+}
+
+
+void QLangAssistWindow::about()
+{
+  QString textMessage;
+  textMessage = "<p> The <a href=\"QLangAssist\">QLangAssist</a> application</p>";
+  textMessage += "<p>Copyright (c) <a href=\"mailto:alexey.veretennikov@gmail.com\">Alexey Veretennikov</a>, 2010</p>";
+  QMessageBox::about(this, tr("About"),textMessage);
 }
