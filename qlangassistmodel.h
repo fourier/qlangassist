@@ -39,6 +39,7 @@ public:
   void stop(WrongAnswersListT& wrongAnswers, int& numberOfQuestionsTotal);
   void fillChoices(IChoices& choices, int numOfCoices);
   int answer(const QString& word, const QString& translation);
+  bool isEmpty() { return iDict.size() == 0; }
 private:
   void processLine(const QString& line);
   void clear();

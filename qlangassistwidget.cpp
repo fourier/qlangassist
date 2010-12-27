@@ -1,5 +1,6 @@
 // -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*-
 #include "qlangassistwidget.h"
+#include "qlangassistsettings.h"
 
 #include <QLabel>
 #include <QRadioButton>
@@ -10,12 +11,12 @@
 #include <QTextBrowser>
 
 
+
 const char* kQuestionText = "Question number 1";
 
-QLangAssistWidget::QLangAssistWidget(QLangAssistModel& model, int numOfChoices) :
+QLangAssistWidget::QLangAssistWidget(QLangAssistModel& model) :
   ParentT(),
-  iModel(model),
-  iNumOfChoices(numOfChoices)
+  iModel(model)
 {
   // Label
   iQuestionNumber = new QLabel(kQuestionText);
@@ -23,15 +24,24 @@ QLangAssistWidget::QLangAssistWidget(QLangAssistModel& model, int numOfChoices) 
   iPhrase->setStyleSheet("QLabel {font-size: 18pt; font-weight: bold; color: darkgreen}");
   iRadioButtons = new ButtonsListT(); 
   iChoices = new QGroupBox(tr("Choose the correct translation:"));
-
+  int numOfChoices = QLangAssistSettings::maxNumOfChoices();
   for (int i = 0; i < numOfChoices; ++ i)
-    iRadioButtons->append(new QRadioButton());
-  iRadioButtons->at(0)->setChecked(true);
-// radio3->setStyleSheet("QRadioButton{color:red}");
-
+  {
+    QRadioButton* btn = new QRadioButton();
+    btn->hide();
+    iRadioButtons->append(btn);
+  }
   QVBoxLayout *vbox = new QVBoxLayout;
   for (int i = 0; i < numOfChoices; ++ i)
     vbox->addWidget(iRadioButtons->at(i));
+
+  numOfChoices = QLangAssistSettings::numChoices();
+  for ( int i = 0; i < numOfChoices; ++ i )
+    iRadioButtons->at(i)->show();
+  iRadioButtons->at(0)->setChecked(true);
+
+// radio3->setStyleSheet("QRadioButton{color:red}");
+
 
   vbox->addStretch(1);
   iChoices->setLayout(vbox);
@@ -63,18 +73,21 @@ void QLangAssistWidget::reloadWindow()
 {
   iQuestionNumber->setText(kQuestionText);
   iModel.start();
-  iModel.fillChoices(*this,iNumOfChoices);
+  updateChoicesCount();
+  int numOfChoices = QLangAssistSettings::numChoices();
+  iModel.fillChoices(*this,numOfChoices);
 }
 
 void QLangAssistWidget::next()
 {
-  for ( int i = 0; i < iNumOfChoices; ++ i)
+  int numOfChoices = QLangAssistSettings::numChoices();
+  for ( int i = 0; i < numOfChoices; ++ i)
     if (iRadioButtons->at(i)->isChecked())
     {
       int number = iModel.answer(iPhrase->text(),iRadioButtons->at(i)->text());
       iQuestionNumber->setText(tr("Question number ") + QString::number(number+1));
     }
-  iModel.fillChoices(*this,iNumOfChoices);
+  iModel.fillChoices(*this,numOfChoices);
 }
 
 void QLangAssistWidget::finish()
@@ -111,4 +124,19 @@ QString QLangAssistWidget::createResults(const QLangAssistModel::WrongAnswersLis
     result += "Correct answer: <font color=green>" + it->iCorrect + "</font><br/>";
   }
   return result;
+}
+
+
+void QLangAssistWidget::updateChoicesCount()
+{
+  int numOfChoices = QLangAssistSettings::maxNumOfChoices();
+  for (int i = 0; i < numOfChoices; ++ i)
+  {
+    iRadioButtons->at(i)->hide();
+  }
+  numOfChoices = QLangAssistSettings::numChoices();
+  for ( int i = 0; i < numOfChoices; ++ i )
+    iRadioButtons->at(i)->show();
+  iRadioButtons->at(0)->setChecked(true);
+  resize(sizeHint());
 }

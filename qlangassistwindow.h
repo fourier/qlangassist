@@ -24,10 +24,11 @@ public:
 protected:
   virtual void closeEvent(QCloseEvent* e);
 public slots:
-  
   void openFile();
   void showWindow();
+  void options();
   void about();
+  void exitApplication();
 private slots:
   void sysTrayActivated(QSystemTrayIcon::ActivationReason reason);
 private:
@@ -36,6 +37,7 @@ private:
   QLangAssistWidget* iWidget;
   QAction* iAboutAct;
   QAction* iOpenAct;
+  QAction* iOptionsAct;
   QAction* iQuitAct;
   QAction* iShowAct;
 };

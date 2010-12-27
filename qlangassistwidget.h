@@ -19,7 +19,7 @@ public:
   typedef QWidget ParentT;
   typedef QList<QRadioButton*> ButtonsListT;
 public:
-  QLangAssistWidget(QLangAssistModel& model, int numOfChoices = 3);
+  QLangAssistWidget(QLangAssistModel& model);
   ~QLangAssistWidget();
   void reloadWindow();
   
@@ -33,10 +33,10 @@ public slots:
 private:
   static QString createResults(const QLangAssistModel::WrongAnswersListT& wrongAnswers,
     int numberOfQuestions);
+  void updateChoicesCount();
 private:
   
   QLangAssistModel& iModel;
-  int iNumOfChoices;
   QLabel* iQuestionNumber;
   QLabel* iPhrase;
   QGroupBox* iChoices;

@@ -12,6 +12,8 @@
 
 #include "qlangassistmodel.h"
 #include "qlangassistwidget.h"
+#include "qlangassistoptionsdlg.h"
+#include "qlangassistsettings.h"
 
 
 QLangAssistWindow::QLangAssistWindow()
@@ -47,7 +49,10 @@ QLangAssistWindow::QLangAssistWindow()
   iSysTrayIcon->setContextMenu(trayMenu);
   
   iSysTrayIcon->show();
-  
+
+  resize(QLangAssistSettings::windowSize());
+  move(QLangAssistSettings::windowPosition());
+
   QTimer::singleShot(10, this, SLOT(openFile()));
 }
 
@@ -68,26 +73,41 @@ void QLangAssistWindow::createMenus()
   helpMenu->addAction(iAboutAct);
   
   iOpenAct = new QAction(tr("&Open..."),this);
+  iOptionsAct = new QAction(tr("O&ptions..."),this);
   iQuitAct=  new QAction(tr("&Exit"),this);
   fileMenu->addAction(iOpenAct);
+  fileMenu->addAction(iOptionsAct);
   fileMenu->addSeparator();
   fileMenu->addAction(iQuitAct);
-  connect(iOpenAct,SIGNAL(triggered(bool)),this,SLOT(openFile()));
-  connect(iQuitAct,SIGNAL(triggered(bool)),qApp,SLOT(quit()));
+  connect(iOpenAct,SIGNAL(triggered()),this,SLOT(openFile()));
+  connect(iOptionsAct,SIGNAL(triggered()),this,SLOT(options()));
+  connect(iQuitAct,SIGNAL(triggered()),this,SLOT(exitApplication()));
+}
+
+void QLangAssistWindow::exitApplication()
+{
+  QLangAssistSettings::setWindowSize(size());
+  QLangAssistSettings::setWindowPosition(pos());
+  qApp->quit();
 }
 
 
 void QLangAssistWindow::openFile()  
 {
-  QString fileName = QFileDialog::getOpenFileName(this,
-                                                  tr("Open Dictionary"), "", tr("Dictionaries (*.txt)"));
+  QString fileName;
+  if (iModel->isEmpty()) // first start
+    fileName = QLangAssistSettings::lastLoadedFile();
   if (!fileName.length())
+    fileName = QFileDialog::getOpenFileName(this,
+                                          tr("Open Dictionary"), "", tr("Dictionaries (*.txt)"));
+  if (!fileName.length() && iModel->isEmpty())
     qApp->quit();
-  if (iModel->readFile(fileName))
+
+  if (fileName.length() && iModel->readFile(fileName))
+  {
     iWidget->reloadWindow();
-  // iWidget->setDictionary(fileName);
-  // QSettings settings("TxMSoft", "QSdict");
-  // settings.setValue(lastDictionaryFile,fileName);
+    QLangAssistSettings::setLastLoadedFile(fileName);
+  }
 }
 
 void QLangAssistWindow::sysTrayActivated(QSystemTrayIcon::ActivationReason reason)
@@ -114,4 +134,16 @@ void QLangAssistWindow::about()
   textMessage = "<p> The <a href=\"QLangAssist\">QLangAssist</a> application</p>";
   textMessage += "<p>Copyright (c) <a href=\"mailto:alexey.veretennikov@gmail.com\">Alexey Veretennikov</a>, 2010</p>";
   QMessageBox::about(this, tr("About"),textMessage);
+}
+
+
+void QLangAssistWindow::options()
+{
+  QLangAssistOptionsDlg dlg;
+  bool doRefresh = false;
+  bool result = dlg.execute(doRefresh);
+  if (result && doRefresh)
+  {
+    iWidget->reloadWindow();
+  }
 }

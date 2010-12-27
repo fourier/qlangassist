@@ -11,13 +11,20 @@ RC_FILE = qlangassist.rc
 ICON = qlangassist.icns
 
 # Input
-HEADERS += qlangassistmodel.h qlangassistwidget.h qlangassistwindow.h
+HEADERS += qlangassistmodel.h \
+           qlangassistoptionsdlg.h \
+           qlangassistsettings.h \
+           qlangassistwidget.h \
+           qlangassistwindow.h \
+           version.h 
 SOURCES += main.cpp \
            qlangassistmodel.cpp \
+           qlangassistoptionsdlg.cpp \
+           qlangassistsettings.cpp \
            qlangassistwidget.cpp \
-           qlangassistwindow.cpp
+           qlangassistwindow.cpp 
 
-#mkdir -p qlangassist.app/Contents/Frameworks           
+
 macx {
   QMAKE_POST_LINK += $${QMAKE_MKDIR} ./qlangassist.app/Contents/Frameworks;
   QMAKE_POST_LINK += $${QMAKE_COPY} -R /opt/local/libexec/qt4-mac//lib/QtGui.framework/Versions/4/Resources/qt_menu.nib ./qlangassist.app/Contents/Resources/qt_menu.nib;

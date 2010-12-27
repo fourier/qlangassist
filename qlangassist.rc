@@ -1,1 +1,25 @@
 IDI_ICON1               ICON    DISCARDABLE     "icon.ico"
+
+#include "version.h"
+
+1 VERSIONINFO
+FILEVERSION FILEVER
+PRODUCTVERSION PRODUCTVER
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904E4"
+    BEGIN
+      VALUE "CompanyName", ORGANIZATION_NAME
+      VALUE "FileDescription", "QLangAssist language learning assistant.\0"
+      VALUE "FileVersion", STRFILEVER
+      VALUE "LegalCopyright", "Copyright 2010 Alexey Veretennikov\0"
+      VALUE "ProductName", APPLICATION_NAME
+      VALUE "ProductVersion", STRPRODUCTVER
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1252
+  END
+END
