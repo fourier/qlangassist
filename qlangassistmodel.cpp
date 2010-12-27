@@ -7,6 +7,8 @@
 #include <QFile>
 #include <QTextStream>
 #include <QTextCodec>
+#include "qlangassistsettings.h"
+
 
 
 QLangAssistModel::QLangAssistModel() :
@@ -44,8 +46,19 @@ void QLangAssistModel::stop(WrongAnswersListT& wrongAnswers, int& numberOfQuesti
 
 void QLangAssistModel::fillChoices(IChoices& choices, int numOfCoices)
 {
-  QList<QString> words  = iDict.keys();
-  QList<QString> translations = iDict.values();
+
+  QList<QString> words;
+  QList<QString> translations;
+  if (QLangAssistSettings::isTranslationInChoices())
+  {
+    words  = iDict.keys();
+    translations = iDict.values();
+  }
+  else
+  {
+    words  = iDict.values();
+    translations = iDict.keys();
+  }
   QStringList answers;
   int wordId = (int) (((double) words.size()) * rand() / (RAND_MAX + 1.0));
   QString word = words[wordId];
@@ -69,10 +82,13 @@ void QLangAssistModel::fillChoices(IChoices& choices, int numOfCoices)
 int QLangAssistModel::answer(const QString& word, const QString& translation)
 {
   iNumberOfQuestionsAsked++;
-  if ( iDict[word] != translation)
-  {
-    iWrongAnswers.append(WrongAnswer(word,translation,iDict[word]));
-  }
+  QString correctTranslation;
+  if (QLangAssistSettings::isTranslationInChoices())
+    correctTranslation = iDict[word];
+  else
+    correctTranslation = iDict.key(word);
+  if (correctTranslation != translation)
+    iWrongAnswers.append(WrongAnswer(word,translation,correctTranslation));
   return iNumberOfQuestionsAsked;
 }
 
