@@ -3,13 +3,19 @@
 #define _QLANGASSISTDICTEDITWINDOW_H_
 
 #include <QDialog>
+#include <QTableWidgetItem>
 
 
 #include "qlangassistmodel.h"
 
-class QTableView;
+class QTableWidget;
 
-
+class DictTableItem : public QTableWidgetItem
+{
+  Q_OBJECT;
+public:
+  DictTableItem();
+};
 
 class QLangAssistDictEditWindow : public QDialog
 {
@@ -21,6 +27,8 @@ public:
   const QLangAssistModel::DictionaryT& dict() const { return iDict; }
 public slots:
   void okButtonPressed();
+protected:
+  reloadView();
 private:
   QLangAssistModel::DictionaryT iDict;
   QTableView* iTable;

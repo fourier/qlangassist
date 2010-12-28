@@ -7,15 +7,15 @@
 #include <QLabel>
 #include <QSpacerItem>
 #include <QMessageBox>
-#include <QTableView>
+#include <QTableWidget>
 
 QLangAssistDictEditWindow::QLangAssistDictEditWindow(const QLangAssistModel::DictionaryT& dict, QWidget* parent)
   : Parent(parent),iDict(dict)
 {
-  iTable = new QTableView;
-
+  iTable = new QTableView(dict.size(),2);
+  iTable->setShowGrid(true);
+  
   QPushButton* okButton = new QPushButton();
-
   
   QVBoxLayout* layout = new QVBoxLayout();
   layout->addWidget(iTable);
@@ -32,3 +32,15 @@ void QLangAssistDictEditWindow::okButtonPressed()
   // TODO: do processing here
   accept();
 }
+
+QLangAssistDictEditWindow::reloadView()
+{
+  QStringList labels;
+  labels << tr("Word")  << tr("Translation");
+  iTable->setHorizontalHeaderLabels(labels);
+  QLangAssistModel::DictionaryT::const_iterator it = iDict.begin(),
+    end = iDict.end();
+  for ( ; it != end; ++ it)
+    
+}
+
