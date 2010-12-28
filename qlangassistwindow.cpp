@@ -14,6 +14,7 @@
 #include "qlangassistwidget.h"
 #include "qlangassistoptionsdlg.h"
 #include "qlangassistsettings.h"
+#include "qlangassistdicteditwindow.h"
 
 
 QLangAssistWindow::QLangAssistWindow()
@@ -33,12 +34,6 @@ QLangAssistWindow::QLangAssistWindow()
   setWindowTitle(tr("QLangAssist"));
 
   QSettings settings("TxMSoft", "QLangAssist");
-  // if (settings.contains(lastDictionaryFile))
-  // {
-  //   iLastFile = settings.value(lastDictionaryFile).toString();
-  //   QTimer::singleShot(10, this, SLOT(loadLastFile()));
-  // }
-
 
   QMenu* trayMenu = new QMenu;
   iShowAct = new QAction(tr("Show"),this);
@@ -73,13 +68,16 @@ void QLangAssistWindow::createMenus()
   helpMenu->addAction(iAboutAct);
   
   iOpenAct = new QAction(tr("&Open..."),this);
+  iEditDictionaryAct = new QAction(tr("&Edit dictionary..."),this);
   iOptionsAct = new QAction(tr("O&ptions..."),this);
   iQuitAct=  new QAction(tr("&Exit"),this);
   fileMenu->addAction(iOpenAct);
+  fileMenu->addAction(iEditDictionaryAct);
   fileMenu->addAction(iOptionsAct);
   fileMenu->addSeparator();
   fileMenu->addAction(iQuitAct);
   connect(iOpenAct,SIGNAL(triggered()),this,SLOT(openFile()));
+  connect(iEditDictionaryAct,SIGNAL(triggered()),this,SLOT(editDictionary()));
   connect(iOptionsAct,SIGNAL(triggered()),this,SLOT(options()));
   connect(iQuitAct,SIGNAL(triggered()),this,SLOT(exitApplication()));
 }
@@ -144,6 +142,26 @@ void QLangAssistWindow::options()
   bool result = dlg.execute(doRefresh);
   if (result && doRefresh)
   {
+    iWidget->reloadWindow();
+  }
+}
+
+void QLangAssistWindow::keyReleaseEvent ( QKeyEvent * event )
+{
+  if (event->key() == Qt::Key_Escape)
+  {
+    hide();
+  }
+  else
+    Parent::keyReleaseEvent(event);
+}
+
+void QLangAssistWindow::editDictionary()
+{
+  QLangAssistDictEditWindow dlg(iModel->dict());
+  if ( dlg.exec() == QDialog::Accepted)
+  {
+    iModel->setDictionary(dlg.dict());
     iWidget->reloadWindow();
   }
 }

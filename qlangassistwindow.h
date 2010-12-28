@@ -23,10 +23,13 @@ public:
   void createMenus();
 protected:
   virtual void closeEvent(QCloseEvent* e);
+  virtual void keyReleaseEvent ( QKeyEvent * event );
+                                         
 public slots:
   void openFile();
   void showWindow();
   void options();
+  void editDictionary();
   void about();
   void exitApplication();
 private slots:
@@ -38,6 +41,7 @@ private:
   QAction* iAboutAct;
   QAction* iOpenAct;
   QAction* iOptionsAct;
+  QAction* iEditDictionaryAct;
   QAction* iQuitAct;
   QAction* iShowAct;
 };
