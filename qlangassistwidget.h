@@ -31,8 +31,6 @@ public slots:
   void next();
   void finish();
 private:
-  static QString createResults(const QLangAssistModel::WrongAnswersListT& wrongAnswers,
-    int numberOfQuestions);
   void updateChoicesCount();
 private:
   
