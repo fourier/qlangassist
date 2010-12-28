@@ -1,0 +1,103 @@
+# -*- Mode: text; coding: utf-8; -*-
+ett kött --- мясо
+en korv --- колбаса
+en färs --- фарш
+en skinka --- ветчина, окорок
+en biff --- рубленая котлета
+en kotlett --- котлета
+en kyckling --- цыплёнок
+en fisk --- рыба
+ett skaldjur --- ракообразное
+en sill --- сельдь
+en räka --- креветка
+en ost --- сыр
+ett ägg --- яйцо
+ett smör --- масло(коровье, животное)
+en mjölk --- молоко
+en grädde --- сливки
+en yougurt --- йогурт
+en marmelad --- мармелад
+en ketchup --- кетчуп
+en senap --- горчица
+en sås --- соус
+ett bröd --- хлеб
+#en fralla --- 
+en kaka --- печенье
+en bulle --- булка
+en tårta --- торт
+en musli --- мусли
+cornflakes --- хлопья
+ett ris --- рис
+en pasta --- макаронные изделия
+ett kaffe --- кофе
+ett te --- чай
+ett vatten --- вода
+en choklad --- шоколад
+en läsk --- газировка
+en öl --- пиво
+en juice --- сок
+en saft --- сок
+ett vin --- вино
+grönsaker --- овощи
+en tomat --- помидор
+en gurka --- огурец
+en lök --- лук
+en purjolök --- лук-порей
+en potatis --- картофель
+en morot --- морковь
+en vitkål --- (белокочанная) капуста
+en blomkål --- цветная капуста
+en sallad --- салат
+ett bär --- ягода
+ett körsbär --- вишня
+ett plommon --- слива
+en jordgubbe --- земляника
+ett päron --- груша
+ett äpple --- яблоко
+ett hallon --- малина
+en apelsin --- апельсин
+en banan --- банан
+ett knänckebröd --- галета
+ett ljust bröd --- белый хлеб
+ett mörkt bröd --- черный хлеб
+kanelbullar --- булочки с корицей
+kex --- печенье(кекс)
+en tomat på burk --- консервированные помидоры
+en sylt --- варенье
+mejerier --- молочные изделия
+ett mjöl --- мука
+ett socker --- сахар
+ett havregryn --- овсяная крупа
+en kakao --- какао
+en olja --- масло(растительное)
+en vinäger --- винный (фруктовый) уксус
+vindruvor --- виноград
+en paprika --- болгарский перец
+en rotfrukt --- корнеплод
+en fil --- простокваша
+ett godis --- сладости
+en tvål --- мыло
+ett tvättmedel --- стиральный порошок
+ett toapapper --- туалетная бумага
+fiskpinnar --- рыбные палочки
+köttbullar --- тефтели
+en glass --- мороженое
+leverpastej --- печеночный паштет
+en falukorv --- колбаса без вкраплений жира
+en blodpudding --- кровяной пудинг
+ett nötkött --- говядина
+ett fläskkött --- свинина
+en köttfärs --- мясной фарш
+ett bacon --- бекон
+en fågel --- птица
+en kalkon --- индюк, индейка
+en lax --- лосось, сёмга, горбуша
+en torsk --- треска
+en böckling --- салака горячего копчения
+jordnötter --- арахис
+ett rakblad --- бритвенное лезвие
+en ask --- коробка
+en burk --- банка
+en tub --- тюбик
+en flaska --- бутылка
+en påse --- пакет, мешок
