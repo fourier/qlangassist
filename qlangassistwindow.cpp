@@ -131,7 +131,7 @@ void QLangAssistWindow::showWindow()
 void QLangAssistWindow::about()
 {
   QString textMessage;
-  textMessage = "<p> The <a href=\"QLangAssist\">QLangAssist</a> application</p>";
+  textMessage = "<p> The <a href=\"http://qlangassist.txmhost.net\">QLangAssist</a> application</p>";
   textMessage += "<p>Copyright (c) <a href=\"mailto:alexey.veretennikov@gmail.com\">Alexey Veretennikov</a>, 2010</p>";
   QMessageBox::about(this, tr("About"),textMessage);
 }
