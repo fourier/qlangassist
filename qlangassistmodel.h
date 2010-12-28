@@ -35,11 +35,14 @@ public:
   QLangAssistModel();
   ~QLangAssistModel();
   bool readFile(const QString& fileName);
+  bool writeFile(const QString& fileName);
   void start();
   void stop(WrongAnswersListT& wrongAnswers, int& numberOfQuestionsTotal);
   void fillChoices(IChoices& choices, int numOfCoices);
   int answer(const QString& word, const QString& translation);
   bool isEmpty() { return iDict.size() == 0; }
+  const DictionaryT& dict() const { return iDict;}
+  QLangAssistModel& setDictionary(const DictionaryT& dict) { clear(); iDict = dict; return *this; }
 private:
   void processLine(const QString& line);
   void clear();

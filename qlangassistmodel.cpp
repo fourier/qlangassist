@@ -127,3 +127,9 @@ void QLangAssistModel::processLine(const QString& line)
   if (word.length() && translation.length())
     iDict[word] = translation;
 }
+
+
+bool QLangAssistModel::writeFile(const QString& fileName)
+{
+  return false;
+}
