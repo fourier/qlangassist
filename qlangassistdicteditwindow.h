@@ -10,12 +10,12 @@
 
 class QTableWidget;
 
-class DictTableItem : public QTableWidgetItem
-{
-  Q_OBJECT;
-public:
-  DictTableItem();
-};
+// class DictTableItem : public QTableWidgetItem
+// {
+//   Q_OBJECT;
+// public:
+//   DictTableItem() {}
+// };
 
 class QLangAssistDictEditWindow : public QDialog
 {
@@ -28,10 +28,10 @@ public:
 public slots:
   void okButtonPressed();
 protected:
-  reloadView();
+  void reloadView();
 private:
   QLangAssistModel::DictionaryT iDict;
-  QTableView* iTable;
+  QTableWidget* iTable;
 };
 
 #endif /* _QLANGASSISTDICTEDITWINDOW_H_ */

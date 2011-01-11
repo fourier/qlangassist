@@ -36,7 +36,7 @@ en choklad --- шоколад
 en läsk --- газировка
 en öl --- пиво
 en juice --- сок
-en saft --- сок
+en saft --- сок(концентрат)
 ett vin --- вино
 grönsaker --- овощи
 en tomat --- помидор
@@ -51,7 +51,7 @@ en sallad --- салат
 ett bär --- ягода
 ett körsbär --- вишня
 ett plommon --- слива
-en jordgubbe --- земляника
+en jordgubbe --- клубника
 ett päron --- груша
 ett äpple --- яблоко
 ett hallon --- малина
