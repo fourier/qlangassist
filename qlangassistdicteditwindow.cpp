@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QTableWidget>
 #include <QTableView>
+#include <QTableWidgetItem>
 
 QLangAssistDictEditWindow::QLangAssistDictEditWindow(const QLangAssistModel::DictionaryT& dict, QWidget* parent)
   : Parent(parent),iDict(dict)
@@ -16,7 +17,7 @@ QLangAssistDictEditWindow::QLangAssistDictEditWindow(const QLangAssistModel::Dic
   iTable = new QTableWidget(dict.size(),2);
   iTable->setShowGrid(true);
   
-  QPushButton* okButton = new QPushButton();
+  QPushButton* okButton = new QPushButton(tr("Ok"));
   
   QVBoxLayout* layout = new QVBoxLayout();
   layout->addWidget(iTable);
@@ -25,6 +26,7 @@ QLangAssistDictEditWindow::QLangAssistDictEditWindow(const QLangAssistModel::Dic
   setLayout(layout);
 
   connect(okButton,SIGNAL(released()),this,SLOT(okButtonPressed()));
+  reloadView();
 }
 
 
@@ -41,9 +43,10 @@ void QLangAssistDictEditWindow::reloadView()
   iTable->setHorizontalHeaderLabels(labels);
   QLangAssistModel::DictionaryT::const_iterator it = iDict.begin(),
     end = iDict.end();
-  for ( ; it != end; ++ it)
+  for ( int count = 0; it != end; ++ it, ++ count)
   {
-    // iTable->set
+    iTable->setItem(count,0,new QTableWidgetItem(iDict.key(*it)));
+    iTable->setItem(count,1,new QTableWidgetItem(*it));
   }
 }
 
