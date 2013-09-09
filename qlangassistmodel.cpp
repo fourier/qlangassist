@@ -12,7 +12,7 @@
 
 
 QLangAssistModel::QLangAssistModel() :
-  QObject(), iNumberOfQuestionsAsked(0)
+  QObject(), iNumberOfQuestionsAsked(0), iLastWordId(-1)
 {
 }
 
@@ -23,7 +23,7 @@ QLangAssistModel::~QLangAssistModel()
 
 void QLangAssistModel::start()
 {
-  srand(time(0));
+  srand(unsigned(time(NULL)));
   iNumberOfQuestionsAsked = 0;
   iWrongAnswers.clear();
 }
@@ -60,21 +60,21 @@ void QLangAssistModel::fillChoices(IChoices& choices, int numOfCoices)
     translations = iDict.keys();
   }
   QStringList answers;
-  int wordId = (int) (((double) words.size()) * rand() / (RAND_MAX + 1.0));
+  int wordId;
+  while ((wordId = (rand() % words.size())) == iLastWordId);
+  iLastWordId = wordId;
+
   QString word = words[wordId];
   QString wordTranslation = translations[wordId];
+  answers.append(wordTranslation);
   translations.removeAll(wordTranslation);
-  std::random_shuffle(words.begin(),words.end());
+  
+  srand(unsigned(time(NULL)));
   for ( ; numOfCoices > 1; --numOfCoices)
   {
-    answers.append(translations.first());
-    translations.pop_front();
+    answers.append(translations.at(rand() % translations.size()));
   }
-  answers.append(wordTranslation);
-
   std::random_shuffle(answers.begin(),answers.end());
-  qDebug() << word << wordTranslation;
-  qDebug() << answers;
   
   choices.fillChoices(word,answers);
 }

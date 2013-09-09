@@ -50,6 +50,7 @@ private:
   DictionaryT iDict;
   QList<WrongAnswer> iWrongAnswers;
   int iNumberOfQuestionsAsked;
+  int iLastWordId;
 };
 
 #endif /* _QLANGASSISTMODEL_H_ */
