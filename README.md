@@ -1,8 +1,8 @@
 QLangAssist
 ===========
-'''QLangAssist''' is a simple utility which helps you to learn new words while studying foreign language. It provides you with a window with multiple choices of translation for a particular word. When you have finished your testing it presents you with a dialog with a list of mistakes you've made during the test.
+**QLangAssist** is a simple utility which helps you to learn new words while studying foreign language. It provides you with a window with multiple choices of translation for a particular word. When you have finished your testing it presents you with a dialog with a list of mistakes you've made during the test.
 
-You should create a custom dictionary in your favorite plain text editor before using the program. ''Use the UTF-8 encoding for the dictionary file!''
+You should create a custom dictionary in your favorite plain text editor before using the program. *Use the UTF-8 encoding for the dictionary file!*
 
 The dictionary format is quite simple :
 <pre>
@@ -24,4 +24,6 @@ TODO
  * Create a simple editor to manage words in user's dictionary</li>
  * Add support for 'cheating' - find the word's translation instantly, not after the test</li>
 
-''Copyright (c) 2010 mailto:alexey.veretennikov@gmail.com>Alexey Veretennikov''
+
+----
+*Copyright (c) 2010 mailto:alexey.veretennikov@gmail.com>Alexey Veretenniko*
