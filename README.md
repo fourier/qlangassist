@@ -26,4 +26,4 @@ TODO
 
 
 ----
-*Copyright (c) 2010 mailto:alexey.veretennikov@gmail.com>Alexey Veretenniko*
+*Copyright (c) 2010 Alexey Veretennikov <alexey dot veretennikov at gmail dot com>*
